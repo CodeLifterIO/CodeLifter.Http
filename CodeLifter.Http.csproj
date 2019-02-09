@@ -2,6 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageVersion>1.0</PackageVersion>
+    <Authors>Andrew Palmer</Authors>
+    <Description>An Http client that I want to reuse across projects</Description>
+    <PackOnBuild>true</PackOnBuild>
+    <PackageId>CodeLifter.Http</PackageId>
   </PropertyGroup>
 
   <ItemGroup>
