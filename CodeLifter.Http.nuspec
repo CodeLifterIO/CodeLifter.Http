@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>CodeLifter.Http</id>
+    <version>$version$</version>
+    <title>CodeLifter.Http</title>
+    <authors>Andrew Palmer</authors>
+    <owners>Andrew Palmer</owners>
+    <licenseUrl>https://github.com/CodeLifterIO/CodeLifter.Http/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/CodeLifterIO/CodeLifter.Http</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
+    <copyright>Copyright 2019</copyright>
+    <tags>http rest</tags>
+  </metadata>
+</package>
