@@ -2,16 +2,23 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <PackageVersion>1.0</PackageVersion>
+    <PackageVersion>1.0.01</PackageVersion>
     <Authors>Andrew Palmer</Authors>
-    <Description>An Http client that I want to reuse across projects</Description>
+    <Description>A basic http client with logging and deserialization.</Description>
     <PackOnBuild>true</PackOnBuild>
     <PackageId>CodeLifter.Http</PackageId>
+    <PackageLicenseUrl>https://github.com/CodeLifterIO/CodeLifter.Http/blob/master/LICENSE</PackageLicenseUrl>
+    <Owners>Andrew Palmer</Owners>
+    <PackageProjectUrl>https://github.com/CodeLifterIO/CodeLifter.Http</PackageProjectUrl>
+    <Summary>A basic http client with logging and deserialization.</Summary>
+    <PackageTags>Http</PackageTags>
+    <Title>CodeLifter.Http</Title>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
     <PackageReference Include="RestSharp" Version="106.6.7" />
+    <PackageReference Include="System.Runtime.Caching" Version="4.5.0" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Logging\" />
