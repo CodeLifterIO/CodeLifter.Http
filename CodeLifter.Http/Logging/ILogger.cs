@@ -1,4 +1,6 @@
 ﻿using System;
+using RestSharp;
+
 namespace CodeLifter.Http.Logging
 {
     public interface ILogger
@@ -14,7 +16,6 @@ namespace CodeLifter.Http.Logging
         void LogException(Exception ex);
         void LogError(string infoMessage);
         void LogError(string title, string infoMessage);
-
-        
+        void LogError(Uri BaseUrl, HttpRequest request, IRestResponse response);
     }
 }

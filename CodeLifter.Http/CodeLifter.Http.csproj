@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <PackageVersion>1.0.4</PackageVersion>
+    <PackageVersion>1.1.0</PackageVersion>
     <Authors>Andrew Palmer</Authors>
     <Description>A basic http client with logging and deserialization.</Description>
     <PackOnBuild>true</PackOnBuild>

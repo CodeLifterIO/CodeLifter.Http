@@ -11,7 +11,7 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    public class RestApiClient : RestSharp.RestClient, IRestApiClient
+    public class HttpClient : RestSharp.RestClient, IHttpClient
     {
         private IDictionary<string, string> CustomHeaders = new Dictionary<string, string>();
 
@@ -19,7 +19,7 @@
         protected ILogger Logger;
         protected IDeserializer Deserializer;
 
-        public RestApiClient(string baseUrl, bool logDebug = false, bool logToConsole = true)
+        public HttpClient(string baseUrl, bool logDebug = false, bool logToConsole = true)
         {
             Cache = new InMemoryCache();
             Logger = new Logger(logDebug, logToConsole);
@@ -27,7 +27,7 @@
             InitSelf(baseUrl);
         }
 
-        public RestApiClient(ICacheService cache, IDeserializer deserializer, ILogger logger, string baseUrl, bool logDebug = false, bool logToConsole = true)
+        public HttpClient(ICacheService cache, IDeserializer deserializer, ILogger logger, string baseUrl, bool logDebug = false, bool logToConsole = true)
         {
             Cache = cache;
             Logger = new Logger(logDebug, logToConsole);
@@ -63,37 +63,15 @@
         {
             if (response.StatusCode == 0)
             {
-                LogError(BaseUrl, request, response);
+                Logger.LogError(BaseUrl.ToString(), request.Resource);
             }
         }
 
-        private void LogError(Uri BaseUrl, IRestRequest request, IRestResponse response)
-        {
-            //Get the values of the parameters passed to the API
-            string parameters = string.Join(", ", request.Parameters.Select(x => x.Name.ToString() + "=" + ((x.Value == null) ? "NULL" : x.Value)).ToArray());
-
-            //Set up the information message with the URL, the status code, and the parameters.
-            string info = "Request to " + BaseUrl.AbsoluteUri + request.Resource + " failed with status code " + response.StatusCode + ", parameters: "
-            + parameters + ", and content: " + response.Content;
-
-            //Acquire the actual exception
-            Exception ex;
-            if (response != null && response.ErrorException != null)
-            {
-                ex = response.ErrorException;
-            }
-            else
-            {
-                ex = new Exception(info);
-                info = string.Empty;
-            }
-
-            //Log the exception and info message
-            Logger.LogError(info);
-        }
 
         public async Task<T> Get<T>(IRestRequest request, string cacheKey = null)
         {
+            Logger.LogMessage($"{BaseUrl}/{request.Resource}");
+
             IRestResponse<T> response = await ExecuteAsync<T>(request);
 
             Logger.LogMessage(response.Content);
@@ -108,7 +86,7 @@
             }
             else
             {
-                LogError(BaseUrl, request, response);
+                Logger.LogError(BaseUrl.ToString(), request.Resource);
                 return default(T);
             }
         }
@@ -159,7 +137,7 @@
             }
             else
             {
-                LogError(BaseUrl, request, response);
+                Logger.LogError(BaseUrl.ToString(), request.Resource);
                 return default(T);
             }
         }

@@ -4,7 +4,7 @@ using RestSharp;
 
 namespace CodeLifter.Http
 {
-    public interface IRestApiClient
+    public interface IHttpClient
     {
         void AddHeader(string name, string value);
         void RemoveHeader(string name);
