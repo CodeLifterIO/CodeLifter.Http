@@ -2,24 +2,24 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <PackageVersion>1.0.02</PackageVersion>
+    <PackageVersion>1.0.4</PackageVersion>
     <Authors>Andrew Palmer</Authors>
     <Description>A basic http client with logging and deserialization.</Description>
     <PackOnBuild>true</PackOnBuild>
     <PackageId>CodeLifter.Http</PackageId>
-    <PackageLicense>https://github.com/CodeLifterIO/CodeLifter.Http/blob/master/LICENSE</PackageLicense>
+    <License>https://github.com/CodeLifterIO/CodeLifter.Http/blob/master/LICENSE</License>
     <Owners>Andrew Palmer</Owners>
     <PackageProjectUrl>https://github.com/CodeLifterIO/CodeLifter.Http</PackageProjectUrl>
     <Summary>A basic http client with logging and deserialization.</Summary>
     <PackageTags>Http</PackageTags>
     <Title>CodeLifter.Http</Title>
+    <PackageLicenseUrl>https://github.com/CodeLifterIO/CodeLifter.Http/blob/master/LICENSE</PackageLicenseUrl>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="RestSharp" Version="106.10.1" />
     <PackageReference Include="System.Runtime.Caching" Version="4.7.0" />
-    <PackageReference Include="Unity" Version="5.8.13" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Logging\" />
