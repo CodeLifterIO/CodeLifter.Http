@@ -6,7 +6,7 @@
     <title>CodeLifter.Http</title>
     <authors>Andrew Palmer</authors>
     <owners>Andrew Palmer</owners>
-    <licenseUrl>https://github.com/CodeLifterIO/CodeLifter.Http/blob/master/LICENSE</licenseUrl>
+    <license>https://github.com/CodeLifterIO/CodeLifter.Http/blob/master/LICENSE</license>
     <projectUrl>https://github.com/CodeLifterIO/CodeLifter.Http</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>

@@ -19,18 +19,18 @@
         protected ILogger Logger;
         protected IDeserializer Deserializer;
 
-        public RestApiClient(string baseUrl)
+        public RestApiClient(string baseUrl, bool logDebug = false, bool logToConsole = true)
         {
             Cache = new InMemoryCache();
-            Logger = new Logger();
+            Logger = new Logger(logDebug, logToConsole);
             Deserializer = new JsonSerializer();
             InitSelf(baseUrl);
         }
 
-        public RestApiClient(ICacheService cache, IDeserializer deserializer, ILogger logger, string baseUrl)
+        public RestApiClient(ICacheService cache, IDeserializer deserializer, ILogger logger, string baseUrl, bool logDebug = false, bool logToConsole = true)
         {
             Cache = cache;
-            Logger = logger;
+            Logger = new Logger(logDebug, logToConsole);
             Deserializer = deserializer;
             InitSelf(baseUrl);
         }
@@ -89,13 +89,15 @@
             }
 
             //Log the exception and info message
-            Logger.LogError(ex, info);
+            Logger.LogError(info);
         }
 
         public async Task<T> Get<T>(IRestRequest request, string cacheKey = null)
         {
-            IRestResponse<T> response = await ExecuteTaskAsync<T>(request);
-            Debug.Write(response.Content);
+            IRestResponse<T> response = await ExecuteAsync<T>(request);
+
+            Logger.LogMessage(response.Content);
+
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 if(!string.IsNullOrWhiteSpace(cacheKey))
@@ -150,7 +152,7 @@
         /// <typeparam name="T">expected return type</typeparam>
         private async Task<T> CreateOrEdit<T>(IRestRequest request)
         {
-            IRestResponse<T> response = await ExecuteTaskAsync<T>(request);
+            IRestResponse<T> response = await ExecuteAsync<T>(request);
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 return response.Data;
@@ -190,7 +192,7 @@
                 request.AddHeader(header.Key, header.Value);
             }
 
-            IRestResponse<T> response = await base.ExecuteTaskAsync<T>(request);
+            IRestResponse<T> response = await base.ExecuteAsync<T>(request);
 
             TimeoutCheck(request, response);
             return response;
