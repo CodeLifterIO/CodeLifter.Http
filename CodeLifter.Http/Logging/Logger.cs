@@ -59,7 +59,7 @@ namespace CodeLifter.Http.Logging
         public void LogError(string title, string infoMessage)
         {
             if (string.IsNullOrWhiteSpace(title)) title = "ERROR";
-            PrintToAllEnabledLogs($"{title}: - INFO:{infoMessage}");
+            PrintToAllEnabledLogs($"{title}: - INFO: {infoMessage}");
         }
 
         public void LogError(Uri BaseUrl, IRestRequest request, IRestResponse response)

@@ -10,7 +10,7 @@ namespace CodeLifter.Http
         void RemoveHeader(string name);
         void ClearHeaders();
         void FlushCache();
-
+        
         Task<T> Get<T>(IRestRequest request, string cacheKey = null);
         Task<T> GetFromCache<T>(IRestRequest request, string cacheKey) where T : class;
 
@@ -20,6 +20,7 @@ namespace CodeLifter.Http
         Task<T> Put<T>(IRestRequest request);
         Task<T> Put<T>(IRestRequest request, object data, params string[] includedProperties);
 
+        ///TODO - Complete Delete Functionality
         //Task<IRestResponse> Delete(IRestRequest request);
     }
 }

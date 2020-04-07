@@ -67,12 +67,12 @@
             }
         }
 
-
         public async Task<T> Get<T>(IRestRequest request, string cacheKey = null)
         {
             Logger.LogMessage($"{BaseUrl}/{request.Resource}");
-
             IRestResponse<T> response = await ExecuteAsync<T>(request);
+
+            if(response.Data == null) Logger.LogError($"the data returned from {BaseUrl}/{request.Resource} is of an invalid format. ");
 
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
