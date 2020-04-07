@@ -9,6 +9,7 @@ namespace CodeLifter.Http
         void AddHeader(string name, string value);
         void RemoveHeader(string name);
         void ClearHeaders();
+        void FlushCache();
 
         Task<T> Get<T>(IRestRequest request, string cacheKey = null);
         Task<T> GetFromCache<T>(IRestRequest request, string cacheKey) where T : class;

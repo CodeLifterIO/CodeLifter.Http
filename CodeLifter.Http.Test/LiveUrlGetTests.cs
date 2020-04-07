@@ -36,5 +36,18 @@ namespace CodeLifter.Http.Test
 
             Assert.Null(result);
         }
+
+        //[Fact]
+        //public async void TestAnInvalidUrlThrows()
+        //{
+        //    string BaseURI = "https://this.is.not.a.real.url.com";
+        //    HttpClient Client = new HttpClient(BaseURI, true, true);
+        //    Client.Timeout = 5000;
+
+        //    HttpRequest request = new HttpRequest("");
+        //    Ip result = await Client.Get<Ip>(request);
+
+        //    Assert.Throws(result);
+        //}
     }
 }

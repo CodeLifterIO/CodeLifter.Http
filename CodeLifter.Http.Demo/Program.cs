@@ -19,10 +19,14 @@ namespace CodeLifter.Http.Demo
         private static async Task UseHttpGet()
         {
             string BaseURI = "https://api.ipify.org?format=json";
-            HttpClient Client = new HttpClient(BaseURI, true, true);
+            HttpClient Client = new HttpClient(BaseURI, true);
+
+            Client.FlushCache();
 
             HttpRequest request = new HttpRequest("");
-            Ip result = await Client.Get<Ip>(request);
+            Ip cacheThisdResult = await Client.GetFromCache<Ip>(request, "this_is_a_test_key");
+            Ip skippedCache = await Client.Get<Ip>(request);
+            Ip resultFromCache = await Client.GetFromCache<Ip>(request, "this_is_a_test_key");
         }
     }
 }

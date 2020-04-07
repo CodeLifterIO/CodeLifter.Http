@@ -13,7 +13,7 @@ namespace CodeLifter.Http.Logging
             IncludeConsole = true;
         }
 
-        public Logger(bool includeDebug, bool includeConsole)
+        public Logger(bool includeConsole = true, bool includeDebug = true)
         {
             IncludeDebug = includeDebug;
             IncludeConsole = includeConsole;
@@ -38,12 +38,17 @@ namespace CodeLifter.Http.Logging
 
         public void LogMessage(string infoMessage)
         {
-            PrintToAllEnabledLogs($"LOG - TRACE: - INFO:{infoMessage}");
+            PrintToAllEnabledLogs($"TRACE: - INFO:{infoMessage}");
         }
 
         public void LogMessage(string title, string infoMessage)
         {
-            PrintToAllEnabledLogs($"LOG - {title.ToUpper()}: - {infoMessage}");
+            PrintToAllEnabledLogs($"{title.ToUpper()}: - {infoMessage}");
+        }
+
+        public void LogException(Exception ex)
+        {
+            LogError("EXCEPTION", ex.InnerException.Message); ;
         }
 
         public void LogError(string infoMessage)
@@ -53,11 +58,11 @@ namespace CodeLifter.Http.Logging
 
         public void LogError(string title, string infoMessage)
         {
-            if (string.IsNullOrWhiteSpace(title)) title = "LOG - ERROR";
+            if (string.IsNullOrWhiteSpace(title)) title = "ERROR";
             PrintToAllEnabledLogs($"{title}: - INFO:{infoMessage}");
         }
 
-        public void LogError(Uri BaseUrl, HttpRequest request, IRestResponse response)
+        public void LogError(Uri BaseUrl, IRestRequest request, IRestResponse response)
         {
             //Get the values of the parameters passed to the API
             string parameters = string.Join(", ", request.Parameters.Select(x => x.Name.ToString() + "=" + ((x.Value == null) ? "NULL" : x.Value)).ToArray());
@@ -82,14 +87,9 @@ namespace CodeLifter.Http.Logging
             LogError(info);
         }
 
-
-        public void LogException(Exception ex)
-        {
-            LogError("LOG - EXCEPTION", ex.InnerException.Message);;
-        }
-
         private void PrintToAllEnabledLogs(string output)
         {
+            output = $"*** LOG {DateTime.Now} *** {output}";
             if (IncludeConsole) Console.WriteLine(output);
             if (IncludeDebug) Debug.WriteLine(output);
         }

@@ -74,8 +74,6 @@
 
             IRestResponse<T> response = await ExecuteAsync<T>(request);
 
-            Logger.LogMessage(response.Content);
-
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 if(!string.IsNullOrWhiteSpace(cacheKey))
@@ -86,7 +84,7 @@
             }
             else
             {
-                Logger.LogError(BaseUrl.ToString(), request.Resource);
+                Logger.LogError(BaseUrl, request, response);
                 return default(T);
             }
         }
@@ -97,8 +95,13 @@
 
             if (item == null)
             {
+                Logger.LogMessage("CACHE MISS");
                 item = await Get<T>(request, cacheKey);
             }
+            {
+                Logger.LogMessage("CACHE HIT");
+            }
+
             return item;
         }
 
@@ -174,6 +177,11 @@
 
             TimeoutCheck(request, response);
             return response;
+        }
+
+        public void FlushCache()
+        {
+            Cache.Flush();
         }
     }
 }
