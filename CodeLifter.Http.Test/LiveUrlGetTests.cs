@@ -14,7 +14,7 @@ namespace CodeLifter.Http.Test
         public async void TestAValidUrlRetrunsJsonAsAType()
         {
             string BaseURI = "https://api.ipify.org?format=json";
-            HttpClient Client = new HttpClient(BaseURI, true, true);
+            HttpClient Client = new HttpClient(BaseURI);
 
             HttpRequest request = new HttpRequest("");
             Ip result = await Client.Get<Ip>(request);
@@ -27,7 +27,7 @@ namespace CodeLifter.Http.Test
         public async void AnInvalidUrlReturnsNull()
         {
             string BaseURI = "https://this.is.not.a.real.url.com";
-            HttpClient Client = new HttpClient(BaseURI, true, true);
+            HttpClient Client = new HttpClient(BaseURI);
             Client.Timeout = 5000;
 
             HttpRequest request = new HttpRequest("");

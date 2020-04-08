@@ -20,7 +20,7 @@ namespace CodeLifter.Http.Demo
         private static async Task UseHttpGet()
         {
             string BaseURI = "https://api.ipify.org?format=json";
-            HttpClient Client = new HttpClient(BaseURI, true);
+            HttpClient Client = new HttpClient(BaseURI);
 
             Client.FlushCache();
 

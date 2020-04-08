@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using CodeLifter.Logging.Loggers;
 using RestSharp;
 
 namespace CodeLifter.Http
@@ -10,7 +11,9 @@ namespace CodeLifter.Http
         void RemoveHeader(string name);
         void ClearHeaders();
         void FlushCache();
-        
+        void AddLogger(ILogger log);
+
+
         Task<T> Get<T>(IRestRequest request, string cacheKey = null);
         Task<T> GetFromCache<T>(IRestRequest request, string cacheKey) where T : class;
 
