@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <PackageVersion>1.2.0</PackageVersion>
+    <PackageVersion>1.3.0</PackageVersion>
     <Authors>Andrew Palmer</Authors>
     <Description>A basic http client with logging and deserialization.</Description>
     <PackOnBuild>true</PackOnBuild>
@@ -11,9 +11,10 @@
     <Owners>Andrew Palmer</Owners>
     <PackageProjectUrl>https://github.com/CodeLifterIO/CodeLifter.Http</PackageProjectUrl>
     <Summary>A basic http client with logging and deserialization.</Summary>
-    <PackageTags>Http</PackageTags>
+    <PackageTags>Http, REST</PackageTags>
     <Title>CodeLifter.Http</Title>
     <PackageLicenseUrl>https://github.com/CodeLifterIO/CodeLifter.Http/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageReleaseNotes>Adding better trace to the console, and adding some REST/cache timing.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

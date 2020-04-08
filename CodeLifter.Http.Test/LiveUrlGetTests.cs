@@ -8,7 +8,6 @@ namespace CodeLifter.Http.Test
         public string ip { get; set; }
     }
 
-
     public class LiveUrlGetTests
     {
         [Fact]
@@ -25,7 +24,7 @@ namespace CodeLifter.Http.Test
         }
 
         [Fact]
-        public async void TestAnInvalidUrlReturnsNull()
+        public async void AnInvalidUrlReturnsNull()
         {
             string BaseURI = "https://this.is.not.a.real.url.com";
             HttpClient Client = new HttpClient(BaseURI, true, true);

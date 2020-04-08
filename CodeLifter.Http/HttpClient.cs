@@ -70,9 +70,14 @@
         public async Task<T> Get<T>(IRestRequest request, string cacheKey = null)
         {
             Logger.LogMessage($"{BaseUrl}/{request.Resource}");
-            IRestResponse<T> response = await ExecuteAsync<T>(request);
 
-            if(response.Data == null) Logger.LogError($"the data returned from {BaseUrl}/{request.Resource} is of an invalid format. ");
+            Stopwatch restTimer = new Stopwatch();
+            restTimer.Start();
+            IRestResponse<T> response = await ExecuteAsync<T>(request);
+            restTimer.Stop();
+            Logger.LogMessage($"REQUEST COMPLETED in {restTimer.ElapsedMilliseconds} ms");
+
+            if (response.Data == null) Logger.LogError($"the data returned from {BaseUrl}/{request.Resource} is of an invalid format. ");
 
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
@@ -91,15 +96,19 @@
 
         public async Task<T> GetFromCache<T>(IRestRequest request, string cacheKey) where T : class
         {
+            Stopwatch cacheTimer = new Stopwatch();
+            cacheTimer.Start();
             var item = Cache.Get<T>(cacheKey);
+            cacheTimer.Stop();
 
             if (item == null)
             {
-                Logger.LogMessage("CACHE MISS");
+                Logger.LogMessage($"CACHE MISS in {cacheTimer.ElapsedMilliseconds} ms");
                 item = await Get<T>(request, cacheKey);
             }
+            else
             {
-                Logger.LogMessage("CACHE HIT");
+                Logger.LogMessage($"CACHE HIT in {cacheTimer.ElapsedMilliseconds} ms");
             }
 
             return item;
