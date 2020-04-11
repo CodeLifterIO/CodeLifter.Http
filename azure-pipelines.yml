@@ -13,7 +13,7 @@ pool:
   vmImage: 'windows-latest'
 
 steps:
-- task: '*** ECHO VARS ***'
+- task: EchoVars
   inputs:
     command: echo buildConfiguration
 
