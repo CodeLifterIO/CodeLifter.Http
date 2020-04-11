@@ -9,6 +9,9 @@ trigger:
 pool:
   vmImage: 'windows-latest'
 
+variables:
+  buildConfiguration: 'Release'
+
 steps:
 - task: DotNetCoreCLI@2
   displayName: '*** Build Http Projects ***'
@@ -37,7 +40,7 @@ steps:
     command: 'pack'
     arguments: '--configuration $(buildConfiguration)'
     packagesToPack: 'CodeLifter.Http/CodeLifter.Http.csproj'
-    nobuild: true
+    nobuild: false
     majorVersion: '1'
     minorVersion: '5'
     patchVersion: '1'
