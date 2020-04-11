@@ -14,7 +14,7 @@ pool:
 
 steps:
 - task: '*** ECHO VARS ***'
-  command: echo $(buildConfiguration)
+  command: echo buildConfiguration
 
 - task: DotNetCoreCLI@2
   displayName: '*** Build Http Projects ***'
