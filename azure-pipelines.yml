@@ -5,17 +5,19 @@
 
 trigger:
 - master
-# - production
 
 variables:
-  ${{ if eq( variables['Build.SourceBranchName'], 'production' ) }}: 
-    buildVersion: ${{ variables['mavenVersion'] }}
-    buildConfiguration: 'Release'
-    nugetFeed: ''
-  ${{ if ne( variables['Build.SourceBranchName'], 'production' ) }}: 
-    buildVersion: ${{ variables['Build.SourceBranchName'] }}
-    buildConfiguration: 'Debug'
-    nugetFeed: ''
+  buildConfiguration: 'Debug'
+
+# variables:
+#   ${{ if eq( variables['Build.SourceBranchName'], 'production' ) }}: 
+#     buildVersion: ${{ variables['mavenVersion'] }}
+#     buildConfiguration: 'Release'
+#     nugetFeed: ''
+#   ${{ if ne( variables['Build.SourceBranchName'], 'production' ) }}: 
+#     buildVersion: ${{ variables['Build.SourceBranchName'] }}
+#     buildConfiguration: 'Debug'
+#     nugetFeed: ''
 
 pool:
   vmImage: 'windows-latest'
