@@ -5,6 +5,7 @@
 
 trigger:
 - master
+- production
 
 variables:
   buildConfiguration: 'Release'
