@@ -13,9 +13,6 @@ pool:
   vmImage: 'windows-latest'
 
 steps:
-- task: EchoVars
-  inputs:
-    command: echo buildConfiguration
 
 - task: DotNetCoreCLI@2
   displayName: '*** Build Http Projects ***'
