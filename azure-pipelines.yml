@@ -8,7 +8,12 @@ trigger:
 - production
 
 variables:
-  buildConfiguration: 'Release'
+  ${{ if eq( variables['Build.SourceBranchName'], 'production' ) }}: 
+    buildVersion: ${{ variables['mavenVersion'] }}
+    buildConfiguration: 'Release'
+  ${{ if ne( variables['Build.SourceBranchName'], 'production' ) }}: 
+    buildVersion: ${{ variables['Build.SourceBranchName'] }}
+    buildConfiguration: 'Debug'
 
 pool:
   vmImage: 'windows-latest'
