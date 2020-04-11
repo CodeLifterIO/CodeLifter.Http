@@ -5,11 +5,9 @@
 
 trigger:
 - master
-  variables:
-    buildConfiguration: 'Debug'
-- production
-  variables:
-    buildConfiguration: 'Release'
+
+variables:
+  buildConfiguration: 'Release'
 
 pool:
   vmImage: 'windows-latest'
