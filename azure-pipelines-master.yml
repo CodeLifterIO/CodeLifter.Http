@@ -46,7 +46,7 @@ steps:
     arguments: '--configuration $(buildConfiguration)'
 
 - task: DotNetCoreCLI@2
-  displayName: "*** pack & Upload Nuget ***"
+  displayName: "*** pack Nuget ***"
   inputs:
     command: 'pack'
     arguments: '--configuration $(buildConfiguration)'
