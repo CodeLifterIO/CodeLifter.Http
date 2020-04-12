@@ -4,7 +4,7 @@
 # https://aka.ms/yaml
 
 trigger:
-- master
+- Production
 
 variables:
 - group: ReleaseBuildVarGroup
@@ -52,9 +52,9 @@ steps:
     arguments: '--configuration $(buildConfiguration)'
     packagesToPack: 'CodeLifter.Http/CodeLifter.Http.csproj'
     nobuild: false
-    majorVersion: '$(MAJOR_VERSION)'
-    minorVersion: '$(MINOR_VERSION)'
-    patchVersion: '$(PATCH_VERSION)'
+    majorVersion: $[variables.MAJOR_VERSION]
+    minorVersion: $[variables.MINOR_VERSION]
+    patchVersion: $[variables.PATCH_VERSION]
 
 # The last task is a nuget command, nuget push
 # allowPackageConflicts allows us to build the same version and not throw an error when trying to push
@@ -68,8 +68,8 @@ steps:
     nuGetFeedType: 'external'
     versioningScheme: 'off'
     allowPackageConflicts: false
-    majorVersion: '$(MAJOR_VERSION)'
-    minorVersion: '$(MINOR_VERSION)'
-    patchVersion: '$(PATCH_VERSION)'
+    majorVersion: $[variables.MAJOR_VERSION]
+    minorVersion: $[variables.MINOR_VERSION]
+    patchVersion: $[variables.PATCH_VERSION]
     publishFeedCredentials: 'NugetOrg'
 
