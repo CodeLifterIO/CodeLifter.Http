@@ -1,0 +1,72 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+variables:
+- group: NonReleaseBuildVarGroup
+
+# variables:
+#   ${{ if eq( variables['Build.SourceBranchName'], 'production' ) }}: 
+#     buildVersion: ${{ variables['mavenVersion'] }}
+#     buildConfiguration: 'Release'
+#     nugetFeed: ''
+#   ${{ if ne( variables['Build.SourceBranchName'], 'production' ) }}: 
+#     buildVersion: ${{ variables['Build.SourceBranchName'] }}
+#     buildConfiguration: 'Debug'
+#     nugetFeed: ''
+
+pool:
+  vmImage: 'windows-latest'
+
+steps:
+
+- task: DotNetCoreCLI@2
+  displayName: '*** Build Http Projects ***'
+  inputs:
+    command: 'build'
+    arguments: '--configuration $(buildConfiguration)'
+    projects: 'CodeLifter.Http/CodeLifter.Http.csproj'
+
+- task: DotNetCoreCLI@2
+  displayName: '*** Build Demo Projects ***'
+  inputs:
+    command: 'build'
+    arguments: '--configuration $(buildConfiguration)'
+    projects: 'CodeLifter.Http.Demo/CodeLifter.Http.Demo.csproj'
+    
+- task: DotNetCoreCLI@2
+  displayName: '*** Test CodeLifter.Http ***'
+  inputs:
+    command: test
+    projects: 'CodeLifter.Http.Test/*.csproj'
+    arguments: '--configuration $(buildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: "*** pack Nuget ***"
+  inputs:
+    command: 'pack'
+    arguments: '--configuration $(buildConfiguration)'
+    packagesToPack: 'CodeLifter.Http/CodeLifter.Http.csproj'
+    nobuild: false
+    majorVersion: '$(MAJOR_VERSION)'
+    minorVersion: '$(MINOR_VERSION)'
+    patchVersion: '$(PATCH_VERSION)'
+
+# # The last task is a nuget command, nuget push
+# # This will push any .nupkg files to the 'TestFeed' artifact feed
+# # allowPackageConflicts allows us to build the same version and not throw an error when trying to push
+# # instead it just ingores the latest package unless the version changes
+# - task: NuGetCommand@2
+#   displayName: 'nuget push'
+#   inputs:
+#     command: 'push'
+#     feedsToUse: 'select'
+#     packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+#     nuGetFeedType: 'internal'
+#     publishVstsFeed: 'TestFeed'
+#     versioningScheme: 'off'
+#     allowPackageConflicts: true
